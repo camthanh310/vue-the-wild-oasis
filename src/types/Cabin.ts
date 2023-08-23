@@ -29,4 +29,16 @@ export interface CabinValidationErrorResponse {
 
 export class CabinValidation {
   constructor(public validationError: ValidationError<CabinValidationErrorResponse>) {}
+
+  getValidationErrors(): CabinValidationErrorResponse {
+    return this.validationError.response.data.errors
+  }
+
+  isValidationError(): boolean {
+    return this.validationError.response.status === 422
+  }
+
+  getErrorMessage(): string {
+    return this.validationError.response.data.message ?? 'Something went wrong'
+  }
 }

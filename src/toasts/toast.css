@@ -1,0 +1,10 @@
+.Vue-Toastification__toast--error.my-custom-toast-class,
+.Vue-Toastification__toast--success.my-custom-toast-class {
+  font-size: 16px;
+  max-width: 500px;
+  padding: 16px 24px;
+  background-color: var(--color-grey-0);
+  color: var(--color-grey-700);
+  display: flex;
+  align-items: center;
+}
