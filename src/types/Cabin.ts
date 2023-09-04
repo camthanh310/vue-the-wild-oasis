@@ -11,6 +11,7 @@ export interface CreateCabin {
 
 export interface CabinResponse {
   id: number
+  name: string
   max_capacity: number
   price: number
   discount: number

@@ -38,7 +38,7 @@ function closeModal() {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--border-grey-0);
+  background-color: var(--color-grey-0);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;

@@ -18,3 +18,12 @@ export async function createCabin(newCabin: CreateCabin): Promise<CabinResponse 
     throw new CabinValidation(error)
   }
 }
+
+export async function getCabins(): Promise<Array<CabinResponse> | undefined> {
+  try {
+    const response = await http.get('/cabins/index')
+    return response.data.data
+  } catch (error: any) {
+    throw new CabinValidation(error)
+  }
+}
