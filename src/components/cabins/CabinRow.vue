@@ -73,8 +73,6 @@ function handleDeleteCabin(closeModal: Function) {
             Edit
           </AppMenuButton>
 
-
-
           <AppMenuButton @click="handleOpenDeleteModal(closeMenu)">
             <template #icon>
               <Icon icon="heroicons:trash-solid" />
