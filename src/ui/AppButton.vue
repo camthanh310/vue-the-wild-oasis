@@ -5,6 +5,10 @@ type Variations = 'primary' | 'secondary' | 'danger'
 
 type Sizes = 'small' | 'medium' | 'large'
 
+defineOptions({
+  inheritAttrs: false
+})
+
 defineProps({
   size: {
     type: String as PropType<Sizes>,
@@ -18,7 +22,7 @@ defineProps({
 </script>
 
 <template>
-  <button class="button" :class="[variation, size]">
+  <button v-bind="$attrs" class="button" :class="[variation, size]">
     <slot />
   </button>
 </template>

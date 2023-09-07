@@ -34,8 +34,6 @@ function handleCreateCabin() {
   )
 }
 
-
-
 function handleCloseModal() {
   emit('on-close')
 }

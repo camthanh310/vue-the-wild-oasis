@@ -1,14 +1,37 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { Icon } from '@iconify/vue'
+import { useImageNotFound } from '@/composables/useImageNotFound';
 import type { CabinResponse } from '@/types/Cabin';
 import AppTableRow from '@/ui/AppTableRow.vue';
-import { useImageNotFound } from '@/composables/useImageNotFound';
+import AppModal from '@/ui/AppModal.vue';
+import AppMenu from '@/ui/AppMenu.vue';
+import AppMenuToggle from '@/ui/AppMenuToggle.vue';
+import AppMenuList from '@/ui/AppMenuList.vue';
+import AppMenuButton from '@/ui/AppMenuButton.vue';
+import ConfirmDelete from '@/ui/ConfirmDelete.vue';
 
-defineProps<{
+const props = defineProps<{
   cabin: CabinResponse
 }>()
 
+const deleteModal = ref<InstanceType<typeof AppModal> | null>(null)
+
 const { noImage, imageNotFound } = useImageNotFound()
+
+function handleDuplicate() {
+  alert('handleDuplicate')
+}
+
+function handleOpenDeleteModal(closeMenu: Function) {
+  deleteModal.value?.openModal()
+  closeMenu()
+}
+
+function handleDeleteCabin(closeModal: Function) {
+  alert(`deleted ${props.cabin.id}`)
+  closeModal()
+}
 </script>
 
 <template>
@@ -26,9 +49,42 @@ const { noImage, imageNotFound } = useImageNotFound()
     <span v-else>&mdash;</span>
 
     <div>
-      <Icon icon="heroicons:document-duplicate-solid" /> Duplicate
-      <Icon icon="heroicons:pencil-solid" />Edit
-      <Icon icon="heroicons:trash-solid" /> Delete
+      <AppMenu v-slot="{ open: openMenu, openId, position, close: closeMenu }">
+        <AppMenuToggle :id="cabin.id" @on-toggle="openMenu" />
+
+        <AppMenuList :id="cabin.id" :open-id="openId" :position="position" @on-close="closeMenu">
+          <AppMenuButton @click="handleDuplicate">
+            <template #icon>
+              <Icon icon="heroicons:document-duplicate-solid" />
+            </template>
+            Duplicate
+          </AppMenuButton>
+
+          <AppMenuButton>
+            <template #icon>
+              <Icon icon="heroicons:pencil-solid" />
+            </template>
+            Edit
+          </AppMenuButton>
+
+
+
+          <AppMenuButton @click="handleOpenDeleteModal(closeMenu)">
+            <template #icon>
+              <Icon icon="heroicons:trash-solid" />
+            </template>
+            Delete
+          </AppMenuButton>
+        </AppMenuList>
+      </AppMenu>
+
+      <!-- <AppModal>
+
+      </AppModal> -->
+
+      <AppModal ref="deleteModal" v-slot="{ close: closeModal }">
+        <ConfirmDelete resource-name="cabins" @on-close="closeModal" @on-confirm="handleDeleteCabin(closeModal)" />
+      </AppModal>
     </div>
   </AppTableRow>
 </template>

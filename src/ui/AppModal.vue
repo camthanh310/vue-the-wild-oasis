@@ -1,7 +1,12 @@
 <script lang="ts" setup>
-import { Icon } from '@iconify/vue'
 import { ref } from 'vue';
+import { Icon } from '@iconify/vue'
 import { vOnClickOutside } from '@vueuse/components'
+
+defineExpose({
+  openModal,
+  closeModal
+})
 
 const open = ref(false)
 

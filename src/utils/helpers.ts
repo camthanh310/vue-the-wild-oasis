@@ -1,13 +1,15 @@
+type ImageValue = string | number
+
 function formatCurrency(value: number): string {
   return new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(value)
 }
 
-function getImageUrl(path: string, value: string | number): string {
+function getImageUrl(path: string, value: ImageValue): string {
   const baseURL = 'http://the-wild-oasis-api.test'
-  return `${baseURL}/${path}/${value}`
+  return `${baseURL}/${path}/${value}/image`
 }
 
-function getCabinImage(value: number | string): string {
+function getCabinImage(value: ImageValue): string {
   return getImageUrl('cabins', value)
 }
 
