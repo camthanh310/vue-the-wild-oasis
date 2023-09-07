@@ -27,3 +27,12 @@ export async function getCabins(): Promise<Array<CabinResponse> | undefined> {
     throw new CabinValidation(error)
   }
 }
+
+export async function deleteCabin(cabinId: number | string): Promise<CabinResponse | undefined> {
+  try {
+    const response = await http.delete(`/cabins/${cabinId}/delete`)
+    return response.data.data
+  } catch (error: any) {
+    throw new CabinValidation(error)
+  }
+}

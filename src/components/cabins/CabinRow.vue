@@ -10,6 +10,7 @@ import AppMenuToggle from '@/ui/AppMenuToggle.vue';
 import AppMenuList from '@/ui/AppMenuList.vue';
 import AppMenuButton from '@/ui/AppMenuButton.vue';
 import ConfirmDelete from '@/ui/ConfirmDelete.vue';
+import { useDeleteCabin } from './useDeleteCabin';
 
 const props = defineProps<{
   cabin: CabinResponse
@@ -18,6 +19,8 @@ const props = defineProps<{
 const deleteModal = ref<InstanceType<typeof AppModal> | null>(null)
 
 const { noImage, imageNotFound } = useImageNotFound()
+
+const { isDeleting, deleteCabin } = useDeleteCabin()
 
 function handleDuplicate() {
   alert('handleDuplicate')
@@ -29,8 +32,11 @@ function handleOpenDeleteModal(closeMenu: Function) {
 }
 
 function handleDeleteCabin(closeModal: Function) {
-  alert(`deleted ${props.cabin.id}`)
-  closeModal()
+  deleteCabin(props.cabin.id, {
+    onSettled: () => {
+      closeModal()
+    }
+  })
 }
 </script>
 
