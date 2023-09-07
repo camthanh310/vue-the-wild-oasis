@@ -87,7 +87,8 @@ function handleDeleteCabin(closeModal: Function) {
       </AppModal> -->
 
       <AppModal ref="deleteModal" v-slot="{ close: closeModal }">
-        <ConfirmDelete resource-name="cabins" @on-close="closeModal" @on-confirm="handleDeleteCabin(closeModal)" />
+        <ConfirmDelete resource-name="cabins" @on-close="closeModal" @on-confirm="handleDeleteCabin(closeModal)"
+          :disabled="isDeleting" />
       </AppModal>
     </div>
   </AppTableRow>
