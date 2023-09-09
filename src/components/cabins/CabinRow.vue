@@ -11,6 +11,7 @@ import AppMenuList from '@/ui/AppMenuList.vue';
 import AppMenuButton from '@/ui/AppMenuButton.vue';
 import ConfirmDelete from '@/ui/ConfirmDelete.vue';
 import { useDeleteCabin } from './useDeleteCabin';
+import { useReplicateCabin } from './useReplicateCabin';
 
 const props = defineProps<{
   cabin: CabinResponse
@@ -22,8 +23,14 @@ const { noImage, imageNotFound } = useImageNotFound()
 
 const { isDeleting, deleteCabin } = useDeleteCabin()
 
-function handleDuplicate() {
-  alert('handleDuplicate')
+const { isReplicating, replicateCabin } = useReplicateCabin()
+
+function handleDuplicate(closeMenu: Function) {
+  replicateCabin(props.cabin.id, {
+    onSettled: () => {
+      closeMenu()
+    }
+  })
 }
 
 function handleOpenDeleteModal(closeMenu: Function) {
@@ -59,7 +66,7 @@ function handleDeleteCabin(closeModal: Function) {
         <AppMenuToggle :id="cabin.id" @on-toggle="openMenu" />
 
         <AppMenuList :id="cabin.id" :open-id="openId" :position="position" @on-close="closeMenu">
-          <AppMenuButton @click="handleDuplicate">
+          <AppMenuButton @click="handleDuplicate(closeMenu)" :disabled="isReplicating">
             <template #icon>
               <Icon icon="heroicons:document-duplicate-solid" />
             </template>

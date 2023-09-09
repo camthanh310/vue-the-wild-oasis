@@ -12,7 +12,11 @@ export async function createCabin(newCabin: CreateCabin): Promise<CabinResponse 
     form.append('description', newCabin.description)
     form.append('image', newCabin?.image || '')
 
-    const response = await http.post('/cabins/create', form)
+    const response = await http.post('/cabins/create', form, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
     return response.data.data
   } catch (error: any) {
     throw new CabinValidation(error)
@@ -31,6 +35,15 @@ export async function getCabins(): Promise<Array<CabinResponse> | undefined> {
 export async function deleteCabin(cabinId: number | string): Promise<CabinResponse | undefined> {
   try {
     const response = await http.delete(`/cabins/${cabinId}/delete`)
+    return response.data.data
+  } catch (error: any) {
+    throw new CabinValidation(error)
+  }
+}
+
+export async function replicateCabin(cabinId: number | string): Promise<CabinResponse | undefined> {
+  try {
+    const response = await http.post(`/cabins/${cabinId}/replicate`)
     return response.data.data
   } catch (error: any) {
     throw new CabinValidation(error)

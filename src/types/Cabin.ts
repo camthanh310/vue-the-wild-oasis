@@ -16,7 +16,6 @@ export interface CabinResponse {
   price: number
   discount: number
   description: string
-  image_url: string
 }
 
 export interface CabinValidationErrorResponse {
