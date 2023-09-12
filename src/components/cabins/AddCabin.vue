@@ -1,8 +1,21 @@
 <script lang="ts" setup>
-import CreateCabinForm from '@/components/cabins/CreateCabinForm.vue'
+import CabinForm from '@/components/cabins/CabinForm.vue'
 import AppButton from '@/ui/AppButton.vue';
 import AppModal from '@/ui/AppModal.vue';
+import type { CabinData } from '@/types/Cabin';
+import { useCreateCabin } from './useCreateCabin';
 
+const { isCreating, createCabin, errorCreateCabin } = useCreateCabin()
+
+function handleSubmit(cabin: CabinData, closeModal: Function) {
+  createCabin(cabin,
+    {
+      onSuccess: () => {
+        closeModal()
+      }
+    }
+  )
+}
 </script>
 
 <template>
@@ -14,7 +27,8 @@ import AppModal from '@/ui/AppModal.vue';
         </AppButton>
       </template>
       <template #default="{ close }">
-        <CreateCabinForm @on-close="close" />
+        <CabinForm @on-close="close" @on-submit="handleSubmit($event, close)" :is-loading="isCreating"
+          :errors="errorCreateCabin" />
       </template>
     </AppModal>
   </div>

@@ -1,6 +1,6 @@
 import type { ValidationError } from './Validation'
 
-export interface CreateCabin {
+export interface CabinData {
   name: string
   max_capacity: number | string
   price: number | string
