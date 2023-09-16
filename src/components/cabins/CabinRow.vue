@@ -28,7 +28,7 @@ const { isDeleting, deleteCabin } = useDeleteCabin()
 
 const { isReplicating, replicateCabin } = useReplicateCabin()
 
-const { isUpdating, updateCabin, errorUpdateCabin } = useUpdateCabin()
+const { isUpdating, updateCabin, errorUpdateCabin, resetUpdateCabin } = useUpdateCabin()
 
 function handleDuplicate(closeMenu: Function) {
   replicateCabin(props.cabin.id, {
@@ -52,6 +52,7 @@ function handleDeleteCabin(closeModal: Function) {
 }
 
 function handleOpenEditModal(closeMenu: Function) {
+  resetUpdateCabin()
   editModal.value?.openModal()
   closeMenu()
 }

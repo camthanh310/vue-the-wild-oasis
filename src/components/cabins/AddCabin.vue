@@ -5,7 +5,12 @@ import AppModal from '@/ui/AppModal.vue';
 import type { CabinData } from '@/types/Cabin';
 import { useCreateCabin } from './useCreateCabin';
 
-const { isCreating, createCabin, errorCreateCabin } = useCreateCabin()
+const { isCreating, createCabin, errorCreateCabin, resetCreateCabin } = useCreateCabin()
+
+function openModal(open: Function) {
+  resetCreateCabin()
+  open()
+}
 
 function handleSubmit(cabin: CabinData, closeModal: Function) {
   createCabin(cabin,
@@ -22,7 +27,7 @@ function handleSubmit(cabin: CabinData, closeModal: Function) {
   <div>
     <AppModal>
       <template #open="{ open }">
-        <AppButton @click="open">
+        <AppButton @click="openModal(open)">
           Add new cabin
         </AppButton>
       </template>

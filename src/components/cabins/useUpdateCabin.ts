@@ -12,7 +12,8 @@ export function useUpdateCabin() {
   const {
     isLoading: isUpdating,
     mutate: updateCabin,
-    error
+    error,
+    reset: resetUpdateCabin
   } = useMutation({
     mutationFn: apiUpdateCabin,
     onSuccess: () => {
@@ -36,5 +37,5 @@ export function useUpdateCabin() {
     return null
   })
 
-  return { isUpdating, updateCabin, errorUpdateCabin }
+  return { isUpdating, updateCabin, errorUpdateCabin, resetUpdateCabin }
 }

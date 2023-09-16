@@ -12,7 +12,8 @@ export function useCreateCabin() {
   const {
     mutate: createCabin,
     isLoading: isCreating,
-    error
+    error,
+    reset: resetCreateCabin
   } = useMutation({
     mutationFn: apiCreateCabin,
     onSuccess: () => {
@@ -36,5 +37,5 @@ export function useCreateCabin() {
     return null
   })
 
-  return { isCreating, createCabin, errorCreateCabin }
+  return { isCreating, createCabin, errorCreateCabin, resetCreateCabin }
 }
